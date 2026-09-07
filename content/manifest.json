@@ -1,0 +1,18 @@
+{
+  "files": [
+    {
+      "sha256": "268ea249d5fbb164c8042a64f4358ba09f276eff02349427ae24d28cc353310f",
+      "path": "codex.md"
+    },
+    {
+      "sha256": "ecf098bb9f72754c49c832e4237d8e6dd5c766a4115de9b3bc202e3796c8afc4",
+      "path": "policy.md"
+    },
+    {
+      "sha256": "ed4df85a8585ad5959c64728f06a27a0b0009c9fa547f3aedc3150fb9e446b36",
+      "path": "bm01.md"
+    }
+  ],
+  "revision": "46af46088a37ae35f50a39b8b03388731176cb83",
+  "schemaVersion": 1
+}
