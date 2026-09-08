@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "revision": "22bdbd2152d64d98f953446e35ae226b10749687",
+  "guides": [
+    {
+      "id": "setup-codex",
+      "entry": "guides/setup-codex/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/setup-codex/GUIDE.md",
+          "sha256": "d20c0af34be46b477da25ea76909a298f4525bebac0bab89002232077dbf3f77"
+        },
+        {
+          "path": "guides/setup-codex/policy.json",
+          "sha256": "0bf5e7d3d07e464a2a1637b5eb11758798d38ec6c242b9d3123999cac0a27bcb"
+        },
+        {
+          "path": "guides/setup-codex/references/enterprise-policy.md",
+          "sha256": "8e660aad6dd4252d2cdae950ea266d70f4fe7e69b092f74be208e67bab25296b"
+        },
+        {
+          "path": "guides/setup-codex/scripts/configure-launcher.ps1",
+          "sha256": "54b0dbe0104318c2bf4b828f9c5e15763292cec977e769c038aced93ad8b9f9b"
+        },
+        {
+          "path": "guides/setup-codex/scripts/install-cli.ps1",
+          "sha256": "17041a804fb97766284ec4db86e2691a1e7258cd76860c867eb21c726c71f29a"
+        },
+        {
+          "path": "guides/setup-codex/scripts/install-package.ps1",
+          "sha256": "4400634ae97b4ceaea3c2058d1f9c81d4b33b98537507ac9bb5d44040150f116"
+        },
+        {
+          "path": "guides/setup-codex/templates/request-installation.md",
+          "sha256": "c8e0d1ef6adf56f5eff4ecfc679bede66715b70f360dcf3e941514e5946c5aec"
+        },
+        {
+          "path": "guides/setup-codex/templates/request-network-access.md",
+          "sha256": "08c1425003ae74096a41d729d1f75283c77ecd07d4f0c0ea1e428fef9ff3fa50"
+        }
+      ]
+    },
+    {
+      "id": "workspace-note",
+      "entry": "guides/workspace-note/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/workspace-note/GUIDE.md",
+          "sha256": "3c59e012359f8b74cd123cc71dce8c4de1e65822b01beeb99406a3745cafaaf2"
+        },
+        {
+          "path": "guides/workspace-note/references/note.md",
+          "sha256": "232396b8ec7b5a2fb7f5549f7adb3af31587a34f2577d3c3e4a4f7e47351e11e"
+        }
+      ]
+    }
+  ]
+}
