@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "revision": "22bdbd2152d64d98f953446e35ae226b10749687",
+  "revision": "44ea1ef775a7119ef1684ddb12c531c4292cdc7b",
   "guides": [
     {
       "id": "setup-codex",
@@ -8,7 +8,7 @@
       "files": [
         {
           "path": "guides/setup-codex/GUIDE.md",
-          "sha256": "d20c0af34be46b477da25ea76909a298f4525bebac0bab89002232077dbf3f77"
+          "sha256": "db62b98674b510d194078de56656c104ac3d7eea2abdac8bcf437fac0d9229bb"
         },
         {
           "path": "guides/setup-codex/policy.json",
