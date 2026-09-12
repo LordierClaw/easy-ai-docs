@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "completion": "Mở Start Menu → Hermes Agent (EasyAI), hỏi: Bạn có thể giúp tôi làm những việc gì? CLI và cấu trúc cấu hình đã được kiểm tra; chưa gọi model hoặc thử browser/voice/gateway.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Tạo lại launcher cho Hermes đã cài, giữ source/venv; hướng dẫn người dùng thiết lập provider/model trong vùng Hermes riêng.",
+    "steps": [
+      {
+        "id": "configure-launcher",
+        "title": "Tạo shortcut Hermes Agent và thiết lập",
+        "change": {
+          "operation": "guide_script",
+          "path": "scripts/configure-launcher.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/hermes"
+          },
+          "timeout": 60000,
+          "installer": false
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "hermes-cli",
+        "title": "Hermes CLI chạy được",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-hermes.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/hermes",
+            "Mode": "cli"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      },
+      {
+        "id": "hermes-setup",
+        "title": "Thiết lập provider/model của Hermes",
+        "userConfirmation": "Mở Start Menu → Hermes - Setup. Chọn provider/model và hoàn tất đăng nhập hoặc nhập key trực tiếp trong CLI chính thức. Quay lại EasyAI xác nhận. Không gửi key vào chat."
+      },
+      {
+        "id": "hermes-config",
+        "title": "Cấu hình Hermes hợp lệ",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-hermes.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/hermes",
+            "Mode": "config"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        },
+        "afterConfirmation": "hermes-setup"
+      }
+    ]
+  }
+}

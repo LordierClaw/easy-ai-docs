@@ -1,0 +1,867 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "completion": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "preflight": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "query": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "ai_provider"
+                  }
+                },
+                "required": [
+                  "operation"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "codex_provider_status"
+                  }
+                },
+                "required": [
+                  "operation"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "system_info"
+                  }
+                },
+                "required": [
+                  "operation"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "find_executable"
+                  },
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[\\w.-]+$"
+                  }
+                },
+                "required": [
+                  "operation",
+                  "name"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "read_file"
+                  },
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "operation",
+                  "path"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "read_registry"
+                  },
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "operation",
+                  "path",
+                  "name"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "http_probe"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "operation",
+                  "url"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "const": "find_package"
+                  },
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[\\w.*-]+$"
+                  }
+                },
+                "required": [
+                  "operation",
+                  "name"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "query"
+        ]
+      }
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "maxItems": 30,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "change": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "ensure_runtime"
+                      },
+                      "runtime": {
+                        "type": "string",
+                        "enum": [
+                          "git",
+                          "node"
+                        ]
+                      },
+                      "minVersion": {
+                        "type": "string",
+                        "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "runtime",
+                      "minVersion"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "configure_codex_provider"
+                      }
+                    },
+                    "required": [
+                      "operation"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "guide_script"
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "parameters": {
+                        "default": {},
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+                        },
+                        "additionalProperties": {
+                          "type": "string",
+                          "maxLength": 2000
+                        }
+                      },
+                      "timeout": {
+                        "default": 60000,
+                        "type": "integer",
+                        "minimum": 1000,
+                        "maximum": 1200000
+                      },
+                      "installer": {
+                        "default": false,
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "path"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "write_file"
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "content": {
+                        "type": "string",
+                        "maxLength": 1000000
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "path",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "edit_toml"
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "remove": {
+                        "default": [],
+                        "maxItems": 100,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[\\w-]+$"
+                        }
+                      },
+                      "set": {
+                        "default": {},
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string",
+                          "pattern": "^[\\w-]+$"
+                        },
+                        "additionalProperties": {
+                          "type": [
+                            "string",
+                            "number",
+                            "boolean"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "path"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "download"
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "url",
+                      "path",
+                      "sha256"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "powershell"
+                      },
+                      "script": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 32000
+                      },
+                      "timeout": {
+                        "default": 60000,
+                        "type": "integer",
+                        "minimum": 1000,
+                        "maximum": 1200000
+                      },
+                      "installer": {
+                        "default": false,
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "script"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operation": {
+                        "type": "string",
+                        "const": "process"
+                      },
+                      "executable": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "args": {
+                        "maxItems": 50,
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "timeout": {
+                        "default": 60000,
+                        "type": "integer",
+                        "minimum": 1000,
+                        "maximum": 1200000
+                      },
+                      "installer": {
+                        "default": false,
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "executable",
+                      "args"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "change"
+            ]
+          }
+        },
+        "checks": {
+          "minItems": 1,
+          "maxItems": 30,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "query": {
+                "anyOf": [
+                  {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "ai_provider"
+                          }
+                        },
+                        "required": [
+                          "operation"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "codex_provider_status"
+                          }
+                        },
+                        "required": [
+                          "operation"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "system_info"
+                          }
+                        },
+                        "required": [
+                          "operation"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "find_executable"
+                          },
+                          "name": {
+                            "type": "string",
+                            "pattern": "^[\\w.-]+$"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "read_file"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "path"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "read_registry"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "path",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "http_probe"
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "url"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "find_package"
+                          },
+                          "name": {
+                            "type": "string",
+                            "pattern": "^[\\w.*-]+$"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "name"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "ensure_runtime"
+                          },
+                          "runtime": {
+                            "type": "string",
+                            "enum": [
+                              "git",
+                              "node"
+                            ]
+                          },
+                          "minVersion": {
+                            "type": "string",
+                            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "runtime",
+                          "minVersion"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "configure_codex_provider"
+                          }
+                        },
+                        "required": [
+                          "operation"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "guide_script"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "parameters": {
+                            "default": {},
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string",
+                              "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+                            },
+                            "additionalProperties": {
+                              "type": "string",
+                              "maxLength": 2000
+                            }
+                          },
+                          "timeout": {
+                            "default": 60000,
+                            "type": "integer",
+                            "minimum": 1000,
+                            "maximum": 1200000
+                          },
+                          "installer": {
+                            "default": false,
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "path"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "write_file"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "content": {
+                            "type": "string",
+                            "maxLength": 1000000
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "path",
+                          "content"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "edit_toml"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "remove": {
+                            "default": [],
+                            "maxItems": 100,
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^[\\w-]+$"
+                            }
+                          },
+                          "set": {
+                            "default": {},
+                            "type": "object",
+                            "propertyNames": {
+                              "type": "string",
+                              "pattern": "^[\\w-]+$"
+                            },
+                            "additionalProperties": {
+                              "type": [
+                                "string",
+                                "number",
+                                "boolean"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "path"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "download"
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sha256": {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "url",
+                          "path",
+                          "sha256"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "powershell"
+                          },
+                          "script": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 32000
+                          },
+                          "timeout": {
+                            "default": 60000,
+                            "type": "integer",
+                            "minimum": 1000,
+                            "maximum": 1200000
+                          },
+                          "installer": {
+                            "default": false,
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "script"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "operation": {
+                            "type": "string",
+                            "const": "process"
+                          },
+                          "executable": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "args": {
+                            "maxItems": 50,
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "timeout": {
+                            "default": 60000,
+                            "type": "integer",
+                            "minimum": 1000,
+                            "maximum": 1200000
+                          },
+                          "installer": {
+                            "default": false,
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "operation",
+                          "executable",
+                          "args"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "expect": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "maxLength": 200
+                  },
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "equals",
+                      "not_equals",
+                      "exists",
+                      "contains",
+                      "gte",
+                      "lt",
+                      "version_lt"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ]
+                  }
+                },
+                "required": [
+                  "field",
+                  "operator"
+                ]
+              },
+              "userConfirmation": {
+                "type": "string"
+              },
+              "afterConfirmation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+          }
+        }
+      },
+      "required": [
+        "summary",
+        "steps",
+        "checks"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "preflight",
+    "plan"
+  ]
+}

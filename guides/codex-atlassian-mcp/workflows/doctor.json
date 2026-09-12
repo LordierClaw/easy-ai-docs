@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "completion": "Cấu hình Atlassian MCP đã đăng ký. Doctor không xác minh OAuth/quyền site; chọn Cấu hình để đăng nhập và kiểm chứng kết nối thật.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    },
+    {
+      "id": "codex",
+      "title": "Kiểm tra Codex đã cấu hình với provider EasyAI",
+      "query": {
+        "operation": "codex_provider_status"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Kiểm tra đăng ký Atlassian MCP trong cấu hình Codex của EasyAI. Không sửa file, không đăng nhập, không đọc dữ liệu Atlassian.",
+    "steps": [],
+    "checks": [
+      {
+        "id": "mcp-config",
+        "title": "Atlassian MCP được đăng ký đúng",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/doctor-mcp.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      }
+    ]
+  }
+}

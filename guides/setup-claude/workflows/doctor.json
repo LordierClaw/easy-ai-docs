@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "completion": "Claude CLI chạy được. Doctor không kiểm tra tài khoản hoặc kết nối model.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Đọc phiên bản Claude native CLI; không cài hoặc đăng nhập.",
+    "steps": [],
+    "checks": [
+      {
+        "id": "claude-cli",
+        "title": "Claude native CLI chạy được",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-claude.ps1",
+          "parameters": {
+            "Mode": "cli"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      }
+    ]
+  }
+}

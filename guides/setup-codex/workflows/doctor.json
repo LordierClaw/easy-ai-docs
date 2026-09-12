@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "completion": "Kiểm tra cục bộ đạt: Git, Node, CLI, launcher và cấu hình provider đã sẵn sàng. Doctor không gửi câu hỏi tới model; dùng Cấu hình/Cài đặt để chạy smoke test API nếu cần.",
+  "plan": {
+    "checks": [
+      {
+        "expect": {
+          "operator": "equals",
+          "field": "configured",
+          "value": true
+        },
+        "id": "provider-matches",
+        "title": "Cấu hình Codex khớp provider EasyAI",
+        "query": {
+          "operation": "codex_provider_status"
+        }
+      },
+      {
+        "expect": {
+          "operator": "equals",
+          "field": "code",
+          "value": 0
+        },
+        "id": "codex-local",
+        "title": "Kiểm tra runtime, CLI và file quản lý",
+        "query": {
+          "timeout": 60000,
+          "installer": false,
+          "operation": "guide_script",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "path": "scripts/doctor-codex.ps1"
+        }
+      }
+    ],
+    "steps": [],
+    "summary": "Đọc trạng thái runtime, Codex CLI và cấu hình do EasyAI quản lý. Không cài đặt hoặc sửa file."
+  },
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và tài khoản",
+      "query": {
+        "operation": "system_info"
+      }
+    },
+    {
+      "id": "git",
+      "title": "Tìm Git đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "git.exe"
+      }
+    },
+    {
+      "id": "node",
+      "title": "Tìm Node.js đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "node.exe"
+      }
+    },
+    {
+      "id": "npm",
+      "title": "Tìm npm đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "npm.cmd"
+      }
+    },
+    {
+      "id": "provider",
+      "title": "Xác định model và API EasyAI đang dùng",
+      "query": {
+        "operation": "ai_provider"
+      }
+    }
+  ]
+}

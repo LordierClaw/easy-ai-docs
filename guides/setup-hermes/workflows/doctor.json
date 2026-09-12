@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "completion": "Hermes CLI chạy được. Doctor không xác minh model/provider hoặc các tính năng mở rộng.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Đọc phiên bản Hermes CLI trong vùng EasyAI; không cài, không đổi provider.",
+    "steps": [],
+    "checks": [
+      {
+        "id": "hermes-cli",
+        "title": "Hermes CLI chạy được",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-hermes.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/hermes",
+            "Mode": "cli"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      }
+    ]
+  }
+}

@@ -3,79 +3,46 @@
     "account": {
       "operation": "system_info"
     },
-    "git": {
-      "operation": "find_executable",
-      "name": "git.exe"
-    },
-    "node": {
-      "operation": "find_executable",
-      "name": "node.exe"
-    },
-    "openai": {
-      "operation": "http_probe",
-      "url": "https://api.openai.com"
-    },
-    "chatgpt": {
-      "operation": "http_probe",
-      "url": "https://chatgpt.com"
-    },
-    "auth": {
-      "operation": "http_probe",
-      "url": "https://auth.openai.com"
+    "provider": {
+      "operation": "ai_provider"
     }
   },
   "rules": [
     {
-      "id": "missing-git-standard",
+      "id": "elevated",
       "all": [
         {
           "probe": "account",
           "predicate": {
-            "field": "admin",
+            "field": "elevated",
             "operator": "equals",
-            "value": false
-          }
-        },
-        {
-          "probe": "git",
-          "predicate": {
-            "field": "found",
-            "operator": "equals",
-            "value": false
+            "value": true
           }
         }
       ],
-      "reason": "Thiếu Git và tài khoản không có quyền admin. Nhờ IT cài đặt theo quy định.",
+      "reason": "Hãy đóng EasyAI và mở lại bằng tài khoản user, không dùng Run as administrator.",
       "template": "templates/request-installation.md"
     },
     {
-      "id": "missing-node-standard",
+      "id": "unsupported-windows",
       "all": [
         {
           "probe": "account",
           "predicate": {
-            "field": "admin",
-            "operator": "equals",
-            "value": false
-          }
-        },
-        {
-          "probe": "node",
-          "predicate": {
-            "field": "found",
-            "operator": "equals",
-            "value": false
+            "field": "build",
+            "operator": "lt",
+            "value": 19045
           }
         }
       ],
-      "reason": "Thiếu Node.js và tài khoản không có quyền admin. Nhờ IT cài đặt theo quy định.",
+      "reason": "Cần Windows 10 build 19045 hoặc Windows 11 x64 để dùng bộ cài này.",
       "template": "templates/request-installation.md"
     },
     {
-      "id": "openai-unreachable",
+      "id": "provider-unreachable",
       "all": [
         {
-          "probe": "openai",
+          "probe": "provider",
           "predicate": {
             "field": "reachable",
             "operator": "equals",
@@ -83,84 +50,8 @@
           }
         }
       ],
-      "reason": "Không kết nối được API OpenAI; cần IT kiểm tra đường mạng.",
+      "reason": "Không kết nối được API đang dùng của EasyAI. Với VM, cần API hoặc tunnel loopback hoạt động trong guest.",
       "template": "templates/request-network-access.md"
-    },
-    {
-      "id": "chatgpt-unreachable",
-      "all": [
-        {
-          "probe": "chatgpt",
-          "predicate": {
-            "field": "reachable",
-            "operator": "equals",
-            "value": false
-          }
-        }
-      ],
-      "reason": "Không kết nối được ChatGPT; cần IT kiểm tra đường mạng.",
-      "template": "templates/request-network-access.md"
-    },
-    {
-      "id": "auth-unreachable",
-      "all": [
-        {
-          "probe": "auth",
-          "predicate": {
-            "field": "reachable",
-            "operator": "equals",
-            "value": false
-          }
-        }
-      ],
-      "reason": "Không kết nối được dịch vụ đăng nhập; cần IT kiểm tra đường mạng.",
-      "template": "templates/request-network-access.md"
-    },
-    {
-      "reason": "Dependency cần nâng phiên bản nhưng tài khoản không có quyền admin. Nhờ IT cập nhật theo hướng dẫn.",
-      "all": [
-        {
-          "predicate": {
-            "operator": "equals",
-            "value": false,
-            "field": "admin"
-          },
-          "probe": "account"
-        },
-        {
-          "predicate": {
-            "operator": "version_lt",
-            "value": "2.40",
-            "field": "version"
-          },
-          "probe": "git"
-        }
-      ],
-      "template": "templates/request-installation.md",
-      "id": "old-git-standard"
-    },
-    {
-      "reason": "Dependency cần nâng phiên bản nhưng tài khoản không có quyền admin. Nhờ IT cập nhật theo hướng dẫn.",
-      "all": [
-        {
-          "predicate": {
-            "operator": "equals",
-            "value": false,
-            "field": "admin"
-          },
-          "probe": "account"
-        },
-        {
-          "predicate": {
-            "operator": "version_lt",
-            "value": "22",
-            "field": "version"
-          },
-          "probe": "node"
-        }
-      ],
-      "template": "templates/request-installation.md",
-      "id": "old-node-standard"
     }
   ]
 }

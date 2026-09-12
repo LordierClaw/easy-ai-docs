@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "completion": "Ghi chú welcome.txt có nội dung hợp lệ.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Đọc nội dung ghi chú, không sửa file.",
+    "steps": [],
+    "checks": [
+      {
+        "id": "note-content",
+        "title": "Nội dung ghi chú đúng",
+        "query": {
+          "operation": "read_file",
+          "path": "{workspace}/welcome.txt"
+        },
+        "expect": {
+          "field": "content",
+          "operator": "equals",
+          "value": "EASYAI_OK"
+        }
+      }
+    ]
+  }
+}

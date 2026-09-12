@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "completion": "Ghi chú welcome.txt đã được tạo và kiểm chứng trong vùng làm việc EasyAI.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Tạo ghi chú trong vùng làm việc riêng và kiểm chứng nội dung. Sao lưu file trước khi ghi.",
+    "steps": [
+      {
+        "id": "write-note",
+        "title": "Tạo ghi chú làm việc",
+        "change": {
+          "operation": "write_file",
+          "path": "{workspace}/welcome.txt",
+          "content": "EASYAI_OK"
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "note-content",
+        "title": "Nội dung ghi chú đúng",
+        "query": {
+          "operation": "read_file",
+          "path": "{workspace}/welcome.txt"
+        },
+        "expect": {
+          "field": "content",
+          "operator": "equals",
+          "value": "EASYAI_OK"
+        }
+      }
+    ]
+  }
+}

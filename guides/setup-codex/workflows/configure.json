@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "completion": "Đã kiểm tra Codex CLI và phản hồi thật qua API. Mở Start Menu → Codex (EasyAI). Nhập: Hãy giải thích cấu trúc thư mục hiện tại. Để mở dự án khác, thoát Codex bằng /quit, dùng Set-Location tới thư mục dự án rồi chạy lại launcher launch-codex.ps1 ở thư mục Codex của EasyAI. Launcher tự nạp model, API và khóa; không cần đăng nhập ChatGPT.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và tài khoản",
+      "query": {
+        "operation": "system_info"
+      }
+    },
+    {
+      "id": "git",
+      "title": "Tìm Git đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "git.exe"
+      }
+    },
+    {
+      "id": "node",
+      "title": "Tìm Node.js đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "node.exe"
+      }
+    },
+    {
+      "id": "npm",
+      "title": "Tìm npm đã cài",
+      "query": {
+        "operation": "find_executable",
+        "name": "npm.cmd"
+      }
+    },
+    {
+      "id": "provider",
+      "title": "Xác định model và API EasyAI đang dùng",
+      "query": {
+        "operation": "ai_provider"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Cấu hình lại provider và launcher của Codex đã có, giữ CLI. Xác minh hoặc bổ sung runtime Git/Node trong vùng EasyAI; sao lưu file trước sửa và kiểm chứng API thật. Nếu CLI chưa có, chuyển sang hành động Cài đặt.",
+    "steps": [
+      {
+        "id": "ensure-git",
+        "title": "1. Dùng Git hệ thống hoặc tải bundle đã xác minh",
+        "change": {
+          "minVersion": "2.40.0",
+          "runtime": "git",
+          "operation": "ensure_runtime"
+        }
+      },
+      {
+        "id": "ensure-node",
+        "title": "2. Dùng Node.js hệ thống hoặc tải bundle kèm npm",
+        "change": {
+          "minVersion": "22.0.0",
+          "runtime": "node",
+          "operation": "ensure_runtime"
+        }
+      },
+      {
+        "id": "configure-provider",
+        "title": "4. Cấu hình provider EasyAI cho Codex",
+        "change": {
+          "operation": "configure_codex_provider"
+        }
+      },
+      {
+        "id": "configure-launcher",
+        "title": "5. Tạo shortcut Codex (EasyAI) với runtime đã chọn",
+        "change": {
+          "operation": "guide_script",
+          "path": "scripts/configure-launcher.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 60000,
+          "installer": false
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "provider-matches",
+        "title": "Codex dùng đúng model và API của EasyAI",
+        "query": {
+          "operation": "codex_provider_status"
+        },
+        "expect": {
+          "field": "configured",
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "codex-smoke",
+        "title": "Git, Node, CLI và phản hồi EASYAI_OK qua provider",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-codex.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 180000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      }
+    ]
+  }
+}

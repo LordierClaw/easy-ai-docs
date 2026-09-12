@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "completion": "Mở Start Menu → Codex (EasyAI), gõ /mcp để xem Atlassian. Thử hỏi: Liệt kê các site Atlassian tôi có quyền truy cập. Kiểm chứng đã gọi tool chỉ đọc thật; chưa tạo hoặc sửa issue/trang.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    },
+    {
+      "id": "codex",
+      "title": "Kiểm tra Codex đã cấu hình với provider EasyAI",
+      "query": {
+        "operation": "codex_provider_status"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Thêm server Atlassian Rovo MCP vào Codex do EasyAI quản lý, sao lưu config.toml và tạo shortcut đăng nhập. Người dùng thực hiện OAuth chính thức. Sau xác nhận, gửi yêu cầu kiểm chứng qua provider Codex để gọi một tool chỉ đọc danh sách site Atlassian; dữ liệu site đi qua provider đang dùng, không in vào log EasyAI.",
+    "steps": [
+      {
+        "id": "configure-mcp",
+        "title": "Cấu hình Atlassian MCP và shortcut đăng nhập",
+        "change": {
+          "operation": "guide_script",
+          "path": "scripts/configure-mcp.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 60000,
+          "installer": false
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "mcp-config",
+        "title": "Atlassian MCP được đăng ký đúng",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/doctor-mcp.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      },
+      {
+        "id": "atlassian-login",
+        "title": "Đăng nhập Atlassian",
+        "userConfirmation": "Mở Start Menu → Codex - Atlassian Login. Đăng nhập trong trình duyệt chính thức, chọn site và duyệt quyền. Khi CLI báo thành công, quay lại EasyAI xác nhận. Không nhập mật khẩu/token vào chat."
+      },
+      {
+        "id": "mcp-live",
+        "title": "Một tool Atlassian chỉ đọc hoạt động qua Codex",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-mcp.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/codex"
+          },
+          "timeout": 180000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        },
+        "afterConfirmation": "atlassian-login"
+      }
+    ]
+  }
+}

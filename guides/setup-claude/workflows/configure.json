@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "completion": "Mở Start Menu → Claude Code (EasyAI), hỏi: Giải thích cấu trúc dự án hiện tại. CLI và đăng nhập đã được kiểm tra; chưa chạy model smoke test. Cấu hình/tài khoản Claude được quản lý riêng với EasyAI.",
+  "preflight": [
+    {
+      "id": "system",
+      "title": "Kiểm tra Windows và vùng làm việc",
+      "query": {
+        "operation": "system_info"
+      }
+    }
+  ],
+  "plan": {
+    "summary": "Tạo lại launcher Claude Code đã cài, giữ CLI và cấu hình cá nhân; hướng dẫn đăng nhập, rồi kiểm tra trạng thái xác thực.",
+    "steps": [
+      {
+        "id": "configure-launcher",
+        "title": "Tạo shortcut Claude Code (EasyAI)",
+        "change": {
+          "operation": "guide_script",
+          "path": "scripts/configure-launcher.ps1",
+          "parameters": {
+            "Prefix": "{workspace}/claude"
+          },
+          "timeout": 60000,
+          "installer": false
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "claude-cli",
+        "title": "Claude native CLI chạy được",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-claude.ps1",
+          "parameters": {
+            "Mode": "cli"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        }
+      },
+      {
+        "id": "claude-login",
+        "title": "Đăng nhập Claude Code",
+        "userConfirmation": "Mở Start Menu → Claude Code (EasyAI), hoàn tất đăng nhập trong Claude/trình duyệt chính thức. Quay lại EasyAI xác nhận khi xong. Tài khoản Anthropic riêng; không nhập mật khẩu hoặc key vào chat."
+      },
+      {
+        "id": "claude-auth",
+        "title": "Claude CLI xác nhận đã đăng nhập",
+        "query": {
+          "operation": "guide_script",
+          "path": "scripts/verify-claude.ps1",
+          "parameters": {
+            "Mode": "auth"
+          },
+          "timeout": 60000,
+          "installer": false
+        },
+        "expect": {
+          "field": "code",
+          "operator": "equals",
+          "value": 0
+        },
+        "afterConfirmation": "claude-login"
+      }
+    ]
+  }
+}
