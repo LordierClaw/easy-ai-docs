@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 3,
+  "revision": "ee798be005c7c389edd6fc41e6d7dfb293e7d64f",
+  "guides": [
+    {
+      "id": "codex-atlassian-mcp",
+      "entry": "guides/codex-atlassian-mcp/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/codex-atlassian-mcp/GUIDE.md",
+          "sha256": "4f0cd8497b7209d125e2d159d4a7b3fd82b2054a084e34bcfba32cee3f6d1567"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/scripts/configure-mcp.ps1",
+          "sha256": "1558761c98d13e71199ed829f0dd0c26a36949ea304deab7acd90066cbf6f365"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/scripts/doctor-mcp.ps1",
+          "sha256": "f9824a5bbe8d2595676350007f75502f99f979c5ba606dffe904ad68fb39b5dc"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/scripts/verify-mcp.ps1",
+          "sha256": "69a60d4cd39be7a5b42ba8f4169b4c6cbd7ee7b710924b8178ab3da9c6881044"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/workflows/configure.json",
+          "sha256": "57bcc09965b068ad6c8011cd6e59143725b201b185659d36789155167cb07b25"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/workflows/doctor.json",
+          "sha256": "7db2c070a695aec3c37a1d0418f5b7dab0765a6f191c214fbfac4ad061a5ae4b"
+        }
+      ]
+    },
+    {
+      "id": "setup-claude",
+      "entry": "guides/setup-claude/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/setup-claude/GUIDE.md",
+          "sha256": "e4101cef9085affe9d105d46cbf84f83ca12766253a0261f0c593908c99eac24"
+        },
+        {
+          "path": "guides/setup-claude/scripts/configure-launcher.ps1",
+          "sha256": "ebe106f9aa0e949f81335f2b8cba2d3b5594511932e0e46b0ec83bb18e9784e4"
+        },
+        {
+          "path": "guides/setup-claude/scripts/install-claude.ps1",
+          "sha256": "4a00d1d8252f4ad22e9137c3e68800edfa281071d7b8b60b9316b48b8ce99e67"
+        },
+        {
+          "path": "guides/setup-claude/scripts/verify-claude.ps1",
+          "sha256": "cb30545bcaa8155e690e2991939c6401aeaab75e805ceacba35e8f6f6f7f3ce0"
+        },
+        {
+          "path": "guides/setup-claude/workflows/configure.json",
+          "sha256": "fc23fdcabfa981313d3b28e9f780d855bcb642a3914006bfba10469018f231c6"
+        },
+        {
+          "path": "guides/setup-claude/workflows/doctor.json",
+          "sha256": "d2521af3beabcca0b6fb3117d834ec01fcb7778f8d8c60604c590d297f0616e4"
+        },
+        {
+          "path": "guides/setup-claude/workflows/install.json",
+          "sha256": "7eed0a117b0eebe6ec123acc72e828ee9902562936346c3ded0a9e0b92aa0245"
+        }
+      ]
+    },
+    {
+      "id": "setup-codex",
+      "entry": "guides/setup-codex/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/setup-codex/GUIDE.md",
+          "sha256": "61712dc8619febae05cea2d25c29e6410cc1b29ffcbd3b91e90660cfabd3ab4e"
+        },
+        {
+          "path": "guides/setup-codex/policy.json",
+          "sha256": "4764bce19af4e3b76e356ae77c85d4b9f049b27c617cc83b4b08041d1ab29b5b"
+        },
+        {
+          "path": "guides/setup-codex/references/enterprise-policy.md",
+          "sha256": "3a72bedd92245171f91bb9efea8e89dd9efedea3bd18610960c363be3d123ca7"
+        },
+        {
+          "path": "guides/setup-codex/scripts/configure-launcher.ps1",
+          "sha256": "360e1f9e274ab9b02d8be83591adf9d027c88d628d5ef4dcf772a5411e2f8a3c"
+        },
+        {
+          "path": "guides/setup-codex/scripts/doctor-codex.ps1",
+          "sha256": "9fcc3aabe9f205f72437d0a389f875fd09d3f9fe5380f8c02eb53e409ba731df"
+        },
+        {
+          "path": "guides/setup-codex/scripts/install-cli.ps1",
+          "sha256": "7070510c946da1e910fdc44a7cf1848ab18bf613713e64cc595ec9086cae63ae"
+        },
+        {
+          "path": "guides/setup-codex/scripts/install-package.ps1",
+          "sha256": "4400634ae97b4ceaea3c2058d1f9c81d4b33b98537507ac9bb5d44040150f116"
+        },
+        {
+          "path": "guides/setup-codex/scripts/verify-codex.ps1",
+          "sha256": "4478f76de38f5217ab105317d57c403cb96e0d2fe927724dce2655a5b268e98d"
+        },
+        {
+          "path": "guides/setup-codex/templates/request-installation.md",
+          "sha256": "c8e0d1ef6adf56f5eff4ecfc679bede66715b70f360dcf3e941514e5946c5aec"
+        },
+        {
+          "path": "guides/setup-codex/templates/request-network-access.md",
+          "sha256": "08c1425003ae74096a41d729d1f75283c77ecd07d4f0c0ea1e428fef9ff3fa50"
+        },
+        {
+          "path": "guides/setup-codex/workflows/configure.json",
+          "sha256": "edec764eada4559cb2b596512a2ad8b24244bbf75afe65eb8ede7c0cbe33b3c0"
+        },
+        {
+          "path": "guides/setup-codex/workflows/doctor.json",
+          "sha256": "dd13d1e3ab6e9cbcdfc9f29c5bc6e75aaf89d4d9db44a382f662c19ebb792d1a"
+        },
+        {
+          "path": "guides/setup-codex/workflows/install.json",
+          "sha256": "85579134c9a26c6dd93741e0b5d7429b62e0cbc78293bafdbbcfce69d4cdc5c5"
+        }
+      ]
+    },
+    {
+      "id": "setup-hermes",
+      "entry": "guides/setup-hermes/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/setup-hermes/GUIDE.md",
+          "sha256": "1c931b647b5fdb7e0f74b192aaed67575d9b3a060c1b6eeeacc8bcc25709150f"
+        },
+        {
+          "path": "guides/setup-hermes/scripts/configure-launcher.ps1",
+          "sha256": "40e1ba16277140a29dfcd25845c5ab6d8819361b0a46bfb62f0888137bb96b93"
+        },
+        {
+          "path": "guides/setup-hermes/scripts/install-hermes.ps1",
+          "sha256": "e0fe0e9aa1b5610a994c7e5ffc5adb2f9ea5ee3915545816d572ed07fbc219fd"
+        },
+        {
+          "path": "guides/setup-hermes/scripts/verify-hermes.ps1",
+          "sha256": "8cfde2eb39ca50d253d111d8dc7db26c96b07f69974ee3702cbfb4f71958814c"
+        },
+        {
+          "path": "guides/setup-hermes/workflows/configure.json",
+          "sha256": "841be1ec0e760c62e828fa83867d0dafe5c07cb64147c189b248faf34c5110dd"
+        },
+        {
+          "path": "guides/setup-hermes/workflows/doctor.json",
+          "sha256": "2d7ba584c05131b564d4912737aad7d7cbb1c607793cc81054f689b110380f9a"
+        },
+        {
+          "path": "guides/setup-hermes/workflows/install.json",
+          "sha256": "eefaca5d6fa88728b676866cb9cf8ed3301219bd2e9ee3526ab8ba3bc9f27f4b"
+        }
+      ]
+    },
+    {
+      "id": "workspace-note",
+      "entry": "guides/workspace-note/GUIDE.md",
+      "files": [
+        {
+          "path": "guides/workspace-note/GUIDE.md",
+          "sha256": "37cfec85381477d65b59dc8ec8fef740dfbf51de84534f72911b5d9d15017049"
+        },
+        {
+          "path": "guides/workspace-note/references/note.md",
+          "sha256": "232396b8ec7b5a2fb7f5549f7adb3af31587a34f2577d3c3e4a4f7e47351e11e"
+        },
+        {
+          "path": "guides/workspace-note/workflows/doctor.json",
+          "sha256": "51801cb49ae4124ba000b86de0b11c34f703817269834c6011682700b5dcd199"
+        },
+        {
+          "path": "guides/workspace-note/workflows/install.json",
+          "sha256": "e7a4818426019cab34ee3f3eba21aca1496fc753034b9561e5e5700bf0d6fadf"
+        }
+      ]
+    }
+  ]
+}
