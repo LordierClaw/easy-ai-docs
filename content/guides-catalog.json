@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "revision": "f89192550b15edcdec4b9fffcb638d963691cf59",
+  "revision": "17dde8e5f77c66a720a63b336172b7a6abcd6ee7",
   "guides": [
     {
       "id": "codex-atlassian-mcp",
@@ -8,11 +8,11 @@
       "files": [
         {
           "path": "guides/codex-atlassian-mcp/GUIDE.md",
-          "sha256": "2a0051da481bf1110fdccdb67a6263877b4c410afdfefa26d3ce21bce2756936"
+          "sha256": "e06d89ba3ffa7b4ee6fc3eec5d63d09fc560f2282f66170860d3706f0fdbcf10"
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/configure-mcp.ps1",
-          "sha256": "10821aed202ddf9c285f78dbbea71c06bfb67e39020546b0c66f4d239cba6522"
+          "sha256": "b2fe4cf42f8ee700186490d430bdd075242dc2a918cdeb4d12abd99d66803db8"
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/doctor-mcp.ps1",
@@ -24,7 +24,7 @@
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/verify-mcp.ps1",
-          "sha256": "69a60d4cd39be7a5b42ba8f4169b4c6cbd7ee7b710924b8178ab3da9c6881044"
+          "sha256": "ac238e53d7ce0722f467a25ed363ec682067f3d36239de058b1901238a52e67f"
         },
         {
           "path": "guides/codex-atlassian-mcp/workflows/configure.json",
