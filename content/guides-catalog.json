@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "revision": "ee798be005c7c389edd6fc41e6d7dfb293e7d64f",
+  "revision": "f89192550b15edcdec4b9fffcb638d963691cf59",
   "guides": [
     {
       "id": "codex-atlassian-mcp",
@@ -8,15 +8,19 @@
       "files": [
         {
           "path": "guides/codex-atlassian-mcp/GUIDE.md",
-          "sha256": "4f0cd8497b7209d125e2d159d4a7b3fd82b2054a084e34bcfba32cee3f6d1567"
+          "sha256": "2a0051da481bf1110fdccdb67a6263877b4c410afdfefa26d3ce21bce2756936"
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/configure-mcp.ps1",
-          "sha256": "1558761c98d13e71199ed829f0dd0c26a36949ea304deab7acd90066cbf6f365"
+          "sha256": "10821aed202ddf9c285f78dbbea71c06bfb67e39020546b0c66f4d239cba6522"
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/doctor-mcp.ps1",
           "sha256": "f9824a5bbe8d2595676350007f75502f99f979c5ba606dffe904ad68fb39b5dc"
+        },
+        {
+          "path": "guides/codex-atlassian-mcp/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
         },
         {
           "path": "guides/codex-atlassian-mcp/scripts/verify-mcp.ps1",
@@ -38,15 +42,19 @@
       "files": [
         {
           "path": "guides/setup-claude/GUIDE.md",
-          "sha256": "e4101cef9085affe9d105d46cbf84f83ca12766253a0261f0c593908c99eac24"
+          "sha256": "a871a465da7893982134357a6a4f4dcd8a9c3a27e9aa7e5227abec5972ebce93"
         },
         {
           "path": "guides/setup-claude/scripts/configure-launcher.ps1",
-          "sha256": "ebe106f9aa0e949f81335f2b8cba2d3b5594511932e0e46b0ec83bb18e9784e4"
+          "sha256": "a2fdf8093b25426e94ddf32138411a15557821493b4f4c67037c9e5f94d49137"
         },
         {
           "path": "guides/setup-claude/scripts/install-claude.ps1",
           "sha256": "4a00d1d8252f4ad22e9137c3e68800edfa281071d7b8b60b9316b48b8ce99e67"
+        },
+        {
+          "path": "guides/setup-claude/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
         },
         {
           "path": "guides/setup-claude/scripts/verify-claude.ps1",
@@ -72,7 +80,7 @@
       "files": [
         {
           "path": "guides/setup-codex/GUIDE.md",
-          "sha256": "61712dc8619febae05cea2d25c29e6410cc1b29ffcbd3b91e90660cfabd3ab4e"
+          "sha256": "47d0344238d86bf2e6ea2324d12ed31a6f570fae6900ca4346f3b6dbede3da0a"
         },
         {
           "path": "guides/setup-codex/policy.json",
@@ -80,11 +88,11 @@
         },
         {
           "path": "guides/setup-codex/references/enterprise-policy.md",
-          "sha256": "3a72bedd92245171f91bb9efea8e89dd9efedea3bd18610960c363be3d123ca7"
+          "sha256": "8a429eaf8f04db63cc62488190129240d1fb3ae03bd16c1e02e785c8e4bf37be"
         },
         {
           "path": "guides/setup-codex/scripts/configure-launcher.ps1",
-          "sha256": "360e1f9e274ab9b02d8be83591adf9d027c88d628d5ef4dcf772a5411e2f8a3c"
+          "sha256": "7ba693aac14d2cd2140b707ab35710c905156c40f1213185f6d8bda354733c25"
         },
         {
           "path": "guides/setup-codex/scripts/doctor-codex.ps1",
@@ -97,6 +105,10 @@
         {
           "path": "guides/setup-codex/scripts/install-package.ps1",
           "sha256": "4400634ae97b4ceaea3c2058d1f9c81d4b33b98537507ac9bb5d44040150f116"
+        },
+        {
+          "path": "guides/setup-codex/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
         },
         {
           "path": "guides/setup-codex/scripts/verify-codex.ps1",
@@ -130,15 +142,19 @@
       "files": [
         {
           "path": "guides/setup-hermes/GUIDE.md",
-          "sha256": "1c931b647b5fdb7e0f74b192aaed67575d9b3a060c1b6eeeacc8bcc25709150f"
+          "sha256": "3b3c103990d6ac1f1255f95c5cb2b39753310cf17469e79e348af424fbf2f8cd"
         },
         {
           "path": "guides/setup-hermes/scripts/configure-launcher.ps1",
-          "sha256": "40e1ba16277140a29dfcd25845c5ab6d8819361b0a46bfb62f0888137bb96b93"
+          "sha256": "50de64a23a27502f32aa4b58fcbd420002585c9eec61312138f0e3ca0e2e04c7"
         },
         {
           "path": "guides/setup-hermes/scripts/install-hermes.ps1",
           "sha256": "e0fe0e9aa1b5610a994c7e5ffc5adb2f9ea5ee3915545816d572ed07fbc219fd"
+        },
+        {
+          "path": "guides/setup-hermes/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
         },
         {
           "path": "guides/setup-hermes/scripts/verify-hermes.ps1",
