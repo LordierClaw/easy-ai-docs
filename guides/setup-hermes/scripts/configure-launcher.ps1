@@ -30,12 +30,10 @@ foreach($item in @(@{Name='Hermes Agent (EasyAI)';Command=''},@{Name='Hermes - S
   $shortcut=Join-Path $ShortcutDirectory ($item.Name+'.lnk')
   if(Test-Path -LiteralPath $shortcut){Copy-Item -LiteralPath $shortcut -Destination ($shortcut+'.backup-'+[Guid]::NewGuid().ToString())}
   $entry="& ([scriptblock]::Create([IO.File]::ReadAllText('"+$launcher.Replace("'","''")+"')))"+$item.Command
-  $shell=(New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
-  $shell.TargetPath=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
-  $shell.Arguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
-  $shell.WorkingDirectory=$Prefix
-  $shell.Description='Hermes Agent của Nous Research trong vùng EasyAI'
-  $shell.Save()
+  if(!('EasyAIShortcut' -as [type])){Add-Type -Path (Join-Path $PSScriptRoot 'shortcut.cs')}
+  $shortcutTarget=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
+  $shortcutArguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
+  [EasyAIShortcut]::Save($shortcut,$shortcutTarget,$shortcutArguments,$Prefix,'Hermes Agent của Nous Research trong vùng EasyAI')
 }
 Write-Output ('Launcher: '+$launcher)
 exit 0

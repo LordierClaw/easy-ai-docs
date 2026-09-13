@@ -1,7 +1,7 @@
 ---
 schemaVersion: 1
 id: setup-codex
-version: 1.0.0
+version: 1.0.1
 name: Cài đặt Codex
 description: Cài Codex CLI, dùng model/API của EasyAI, kiểm tra hoạt động và tạo lối mở nhanh.
 tags: [ai-agent, coding, openai]
@@ -51,4 +51,3 @@ Mở **Start Menu → Codex (EasyAI)**. Nhập: **Hãy giải thích cấu trúc
 ## Nguồn
 
 [Cấu hình Codex](https://learn.chatgpt.com/docs/config-file/config-advanced), [Codex CLI](https://learn.chatgpt.com/docs/cli), [Package Codex 0.154.0](https://www.npmjs.com/package/@openai/codex/v/0.154.0). Kiểm tra tài liệu/phiên bản ngày 2026-09-12.
-

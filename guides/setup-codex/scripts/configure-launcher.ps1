@@ -50,12 +50,10 @@ New-Item -ItemType Directory -Force -Path $ShortcutDirectory | Out-Null
 $shortcut=Join-Path $ShortcutDirectory 'Codex (EasyAI).lnk'
 if(Test-Path -LiteralPath $shortcut){Copy-Item -LiteralPath $shortcut -Destination ($shortcut+'.backup-'+[Guid]::NewGuid().ToString())}
 $entry="& ([scriptblock]::Create([IO.File]::ReadAllText('"+$launcher.Replace("'","''")+"')))"
-$s=(New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
-$s.TargetPath=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$s.Arguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
-$s.WorkingDirectory=$Prefix
-$s.Description='Codex CLI dùng cùng model và provider với EasyAI'
-$s.Save()
+if(!('EasyAIShortcut' -as [type])){Add-Type -Path (Join-Path $PSScriptRoot 'shortcut.cs')}
+$shortcutTarget=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+$shortcutArguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
+[EasyAIShortcut]::Save($shortcut,$shortcutTarget,$shortcutArguments,$Prefix,'Codex CLI dùng cùng model và provider với EasyAI')
 Write-Output ('Launcher: '+$launcher)
 Write-Output ('Shortcut: '+$shortcut)
 exit 0

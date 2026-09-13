@@ -37,11 +37,9 @@ New-Item -ItemType Directory -Force -Path $ShortcutDirectory | Out-Null
 $shortcut=Join-Path $ShortcutDirectory 'Claude Code (EasyAI).lnk'
 if(Test-Path -LiteralPath $shortcut){Copy-Item -LiteralPath $shortcut -Destination ($shortcut+'.backup-'+[Guid]::NewGuid().ToString())}
 $entry="& ([scriptblock]::Create([IO.File]::ReadAllText('"+$launcher.Replace("'","''")+"')))"
-$shell=(New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
-$shell.TargetPath=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
-$shell.Arguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
-$shell.WorkingDirectory=$Prefix
-$shell.Description='Claude Code CLI với runtime EasyAI'
-$shell.Save()
+if(!('EasyAIShortcut' -as [type])){Add-Type -Path (Join-Path $PSScriptRoot 'shortcut.cs')}
+$shortcutTarget=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
+$shortcutArguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
+[EasyAIShortcut]::Save($shortcut,$shortcutTarget,$shortcutArguments,$Prefix,'Claude Code CLI với runtime EasyAI')
 Write-Output ('Launcher: '+$launcher)
 exit 0

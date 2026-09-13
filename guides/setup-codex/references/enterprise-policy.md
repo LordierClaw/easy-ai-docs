@@ -7,4 +7,3 @@
 - Cài đặt chỉ hoàn tất sau kiểm chứng CLI và API trả đúng EASYAI_OK. Doctor chỉ xác nhận trạng thái cục bộ, không thay thế smoke test API.
 - Nếu bundle/hash/mạng/quyền thất bại, giữ log có lọc secret và dùng mẫu hỗ trợ. Người dùng tự gửi email.
 - Policy và workflow phải thuộc cùng bundle đã ghim cho phiên; AI không thay chính sách để vượt lỗi.
-

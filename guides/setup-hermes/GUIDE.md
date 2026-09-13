@@ -1,7 +1,7 @@
 ---
 schemaVersion: 1
 id: setup-hermes
-version: 1.0.0
+version: 1.0.1
 name: Cài đặt Hermes Agent
 description: Cài Hermes của Nous Research trong vùng riêng, chuẩn bị CLI và hướng dẫn cấu hình provider.
 tags: [ai-agent, nous-research, assistant]

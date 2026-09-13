@@ -14,7 +14,9 @@ try {
   # Let Codex validate TOML rather than attempting an incomplete TOML parser.
   $json=& $cli mcp list --json
   if($LASTEXITCODE -ne 0){throw 'Codex không đọc được config.toml. Giữ nguyên file để xử lý.'}
-  $servers=@(($json -join "`n") | ConvertFrom-Json)
+  # PowerShell 5.1 emits a JSON array as one pipeline object. Do not wrap
+  # that pipeline in @(...), which creates an extra array and hides name.
+  $servers=($json -join "`n") | ConvertFrom-Json
   $existing=@($servers | Where-Object name -eq 'atlassian')
   if($existing.Count -gt 0) {
     if($existing[0].transport.url -ne 'https://mcp.atlassian.com/v2/mcp' -or $existing[0].enabled -eq $false){throw 'Server atlassian đã tồn tại nhưng URL/trạng thái khác. Cần kế hoạch sửa có backup, không ghi đè tự động.'}
@@ -56,11 +58,9 @@ New-Item -ItemType Directory -Force -Path $ShortcutDirectory | Out-Null
 $shortcut=Join-Path $ShortcutDirectory 'Codex - Atlassian Login.lnk'
 if(Test-Path -LiteralPath $shortcut){Copy-Item -LiteralPath $shortcut -Destination ($shortcut+'.backup-'+[Guid]::NewGuid().ToString())}
 $entry="& ([scriptblock]::Create([IO.File]::ReadAllText('"+$login.Replace("'","''")+"')))"
-$shell=(New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
-$shell.TargetPath=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$shell.Arguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
-$shell.WorkingDirectory=$Prefix
-$shell.Description='Đăng nhập OAuth Atlassian cho Codex do EasyAI quản lý'
-$shell.Save()
+if(!('EasyAIShortcut' -as [type])){Add-Type -Path (Join-Path $PSScriptRoot 'shortcut.cs')}
+$shortcutTarget=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+$shortcutArguments='-NoLogo -NoProfile -NoExit -EncodedCommand '+[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($entry))
+[EasyAIShortcut]::Save($shortcut,$shortcutTarget,$shortcutArguments,$Prefix,'Đăng nhập OAuth Atlassian cho Codex do EasyAI quản lý')
 Write-Output ('Mở Start Menu → Codex - Atlassian Login. Launcher: '+$login)
 exit 0

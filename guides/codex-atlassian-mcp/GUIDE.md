@@ -1,7 +1,7 @@
 ---
 schemaVersion: 1
 id: codex-atlassian-mcp
-version: 1.0.0
+version: 1.0.1
 name: Atlassian MCP cho Codex
 description: Kết nối Jira và Confluence Cloud vào Codex của EasyAI qua OAuth và kiểm chứng một lệnh đọc thật.
 tags: [mcp, codex, atlassian, integration]

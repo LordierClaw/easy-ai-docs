@@ -1,7 +1,7 @@
 ---
 schemaVersion: 1
 id: setup-claude
-version: 1.0.0
+version: 1.0.1
 name: Cài đặt Claude Code
 description: Cài CLI chính thức của Anthropic, tạo shortcut và hướng dẫn đăng nhập tài khoản riêng.
 tags: [ai-agent, coding, anthropic]

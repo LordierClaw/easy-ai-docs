@@ -51,7 +51,7 @@ Catalog v3: `content/guides-catalog.json`, ghim commit SHA 40 ký tự và SHA25
 
 Folder không có GUIDE.md được bỏ qua. Metadata hoặc workflow không hợp lệ làm bundle bị từ chối. File bên ngoài folder, symlink, đường dẫn vượt thư mục, tên trùng không phân biệt hoa thường và hash sai đều bị chặn. Giới hạn: 100 guide/catalog, 100 file/guide, 1 MiB/file, 20 MiB/catalog. Artifact runtime lớn đi qua manifest/release riêng. Attachment nhị phân được giữ bằng base64 trong persisted bundle với encoding rõ ràng; hash tính trên byte gốc. AI chỉ đọc văn bản qua `guide_read`.
 
-Sau khi duyệt, adapter tạo một folder riêng dưới `workspace/.guide-runs`, khôi phục file/text/binary và chạy đường dẫn script bằng lệnh ngắn. `$PSScriptRoot` trỏ đúng folder scripts; tài nguyên kế bên có thể được đọc bằng đường dẫn tương đối. Script PowerShell được thêm UTF-8 BOM khi materialize để Windows PowerShell 5.1 đọc đúng tiếng Việt. Các folder này được giữ để chẩn đoán; hiện chưa có cơ chế dọn tự động cho tài nguyên phiên.
+Sau khi duyệt, adapter tạo một folder riêng dưới `workspace/.guide-runs`, khôi phục file/text/binary và chạy đường dẫn script bằng lệnh ngắn. `$PSScriptRoot` trỏ đúng folder scripts; tài nguyên kế bên có thể được đọc bằng đường dẫn tương đối. Script PowerShell được thêm UTF-8 BOM khi materialize để Windows PowerShell 5.1 đọc đúng tiếng Việt. Các folder này được giữ để chẩn đoán; hiện chưa có cơ chế dọn tự động cho tài nguyên phiên. Các guide tạo shortcut nạp tài nguyên `scripts/shortcut.cs` qua `$PSScriptRoot` và dùng IShellLinkW/IPersistFile Unicode, giữ được đường dẫn tài khoản/thư mục tiếng Việt.
 
 ## Runtime
 

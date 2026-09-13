@@ -110,3 +110,7 @@ Guide Atlassian là ví dụ: ghi cấu hình → mở shortcut đăng nhập �
 Chạy `npm run docs:validate` để kiểm metadata, map action, workflow, script path và policy. Publisher quét mọi thư mục có `GUIDE.md`; catalog chứa đường dẫn/hash tài nguyên, ghim nội dung theo commit. Tài liệu [publishing.md](publishing.md) mô tả publish kho easy-ai-docs và runtime assets. Mỗi phiên giữ nguyên bundle/digest được tải lúc bắt đầu; cập nhật catalog không thay script giữa phiên. Offline dùng cache đã xác minh.
 
 Khi sửa hành vi, tăng `version`, giữ ID step ổn định nếu semantics giữ nguyên và thêm check cho điều kiện hoàn tất mới. Điểm di chuyển sang agent/ngôn ngữ khác là metadata + workflow + policy + sự kiện/bằng chứng có cấu trúc. Hệ điều hành, runtime resolution, provider/secret, chạy process và UI là adapter; không đưa Electron/TypeScript vào nội dung guide. Engine mới có thể giữ hợp đồng JSON và thay adapter thực thi. Script Windows vẫn là tài nguyên platform cụ thể; chuyển hệ điều hành cần script tương ứng.
+
+## Lưu ý Windows PowerShell 5.1
+
+Khi CLI trả JSON array, gán trực tiếp kết quả `ConvertFrom-Json` trước khi lọc; bọc pipeline trong `@(...)` có thể tạo mảng lồng và bỏ sót phần tử. Khi tạo shortcut, dùng helper `scripts/shortcut.cs` (IShellLinkW/IPersistFile Unicode) đi kèm các guide mẫu để giữ tên đường dẫn tiếng Việt. Không dùng việc đổi tên file sang ASCII để che lỗi đường dẫn tài khoản người dùng.
