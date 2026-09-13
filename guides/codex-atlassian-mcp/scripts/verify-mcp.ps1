@@ -8,7 +8,7 @@ Push-Location $smoke
 try {
   # Only this read-only tool is available from Atlassian during verification.
   # Capture events in memory: site names/content must not enter EasyAI logs.
-  $events=& ([scriptblock]::Create([IO.File]::ReadAllText($launcher))) exec --json --skip-git-repo-check --sandbox read-only --ephemeral -c 'mcp_servers.atlassian.enabled_tools=["getAccessibleAtlassianResources"]' -c 'mcp_servers.atlassian.required=true' 'Call atlassian getAccessibleAtlassianResources exactly once to verify authentication. Do not use any other tools. Do not modify anything. Do not include site names, URLs or account data in your reply; say only whether the tool succeeded.'
+  $events=& ([scriptblock]::Create([IO.File]::ReadAllText($launcher))) exec --json --skip-git-repo-check --sandbox read-only --ephemeral -c "mcp_servers.atlassian.enabled_tools=['getAccessibleAtlassianResources']" -c 'mcp_servers.atlassian.required=true' 'Call atlassian getAccessibleAtlassianResources exactly once to verify authentication. Do not use any other tools. Do not modify anything. Do not include site names, URLs or account data in your reply; say only whether the tool succeeded.'
   if($LASTEXITCODE -ne 0){throw 'Codex không hoàn tất kiểm chứng MCP.'}
   $verified=$false
   foreach($line in $events) {

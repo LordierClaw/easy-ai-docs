@@ -22,15 +22,25 @@ try {
     if($existing[0].transport.url -ne 'https://mcp.atlassian.com/v2/mcp' -or $existing[0].enabled -eq $false){throw 'Server atlassian đã tồn tại nhưng URL/trạng thái khác. Cần kế hoạch sửa có backup, không ghi đè tự động.'}
     Write-Output 'MCP_CONFIG_REUSED'
   } else {
-    Copy-Item -LiteralPath $config -Destination ($config+'.backup-'+[Guid]::NewGuid().ToString())
     # codex mcp add can start OAuth immediately; register the table here and
-    # leave the browser login to an explicit userConfirmation step.
+    # leave the browser login to an explicit userConfirmation step. Validate a
+    # staged home first: valid inline TOML tables cannot always be extended.
+    $original=[IO.File]::ReadAllBytes($config)
+    $staging=Join-Path $Prefix ('mcp-config-'+[Guid]::NewGuid().ToString())
+    New-Item -ItemType Directory -Path $staging | Out-Null
+    $candidate=Join-Path $staging 'config.toml'
+    [IO.File]::WriteAllBytes($candidate,$original)
     $block="`r`n[mcp_servers.atlassian]`r`nurl = `"https://mcp.atlassian.com/v2/mcp`"`r`n"
-    [IO.File]::AppendAllText($config,$block,[Text.UTF8Encoding]::new($false))
-    $registered=& $cli mcp get atlassian --json
-    if($LASTEXITCODE -ne 0){throw 'Không xác minh được cấu hình MCP mới. Đã giữ bản backup.'}
+    [IO.File]::AppendAllText($candidate,$block,[Text.UTF8Encoding]::new($false))
+    $env:CODEX_HOME=$staging
+    try {
+      $registered=& $cli mcp get atlassian --json
+      if($LASTEXITCODE -ne 0){throw 'Cấu hình MCP dự kiến không hợp lệ. Giữ nguyên config.toml; cần đánh giá cấu trúc TOML trước khi sửa.'}
+    } finally { $env:CODEX_HOME=$codexHome }
     $server=($registered -join "`n") | ConvertFrom-Json
-    if($server.transport.url -ne 'https://mcp.atlassian.com/v2/mcp'){throw 'URL MCP sau ghi không đúng.'}
+    if($server.transport.url -ne 'https://mcp.atlassian.com/v2/mcp'){throw 'URL MCP dự kiến không đúng. Giữ nguyên config.toml.'}
+    if([Convert]::ToBase64String([IO.File]::ReadAllBytes($config)) -cne [Convert]::ToBase64String($original)){throw 'config.toml đã thay đổi trong lúc kiểm tra. Giữ nguyên thay đổi mới; chạy lại kế hoạch.'}
+    [IO.File]::Replace($candidate,$config,($config+'.backup-'+[Guid]::NewGuid().ToString()))
     Write-Output 'MCP_CONFIG_CREATED'
   }
 } finally { $env:CODEX_HOME=$previousCodexHome }
