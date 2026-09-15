@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "name": "Hermes Agent",
+  "description": "Chuẩn bị môi trường Hermes, tạo shortcut và kiểm cấu hình.",
+  "tags": [
+    "ai"
+  ],
+  "scripts": [
+    "scripts/run.ps1",
+    "scripts/install-hermes.ps1",
+    "scripts/configure-launcher.ps1",
+    "scripts/await-auth.ps1",
+    "scripts/verify-hermes.ps1"
+  ],
+  "context": [
+    "/.shared/context/windows"
+  ],
+  "actions": [
+    "install",
+    "configure",
+    "doctor",
+    "repair",
+    "auth"
+  ],
+  "hidden": false,
+  "icon": "⚕️"
+}

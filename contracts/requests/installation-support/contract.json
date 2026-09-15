@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "name": "Hỗ trợ cài đặt",
+  "description": "Mẫu yêu cầu IT hỗ trợ quyền hoặc điều kiện cài đặt.",
+  "tags": [
+    "requests"
+  ],
+  "scripts": [],
+  "context": [
+    "/.shared/context/windows"
+  ],
+  "actions": [
+    "run"
+  ],
+  "hidden": false,
+  "icon": "🛠️"
+}

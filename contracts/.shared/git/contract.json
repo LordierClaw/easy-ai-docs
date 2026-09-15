@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "name": "Git portable",
+  "description": "Dùng Git hệ thống hoặc cache; tải MinGit đã kiểm chứng khi thiếu.",
+  "tags": [
+    ".shared"
+  ],
+  "scripts": [
+    "scripts/run.ps1"
+  ],
+  "context": [],
+  "actions": [
+    "ensure",
+    "doctor"
+  ],
+  "hidden": true,
+  "icon": "🧰"
+}

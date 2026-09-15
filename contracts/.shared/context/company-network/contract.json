@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "name": "Mạng doanh nghiệp",
+  "description": "Ngữ cảnh proxy, TLS và yêu cầu hỗ trợ IT.",
+  "tags": [
+    ".shared"
+  ],
+  "scripts": [],
+  "context": [],
+  "actions": [
+    "run"
+  ],
+  "hidden": true,
+  "icon": "🏢"
+}

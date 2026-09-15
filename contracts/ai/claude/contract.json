@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "name": "Claude Code",
+  "description": "Cài Claude Code native, tạo shortcut và kiểm tra đăng nhập.",
+  "tags": [
+    "ai"
+  ],
+  "scripts": [
+    "scripts/run.ps1",
+    "scripts/install-claude.ps1",
+    "scripts/configure-launcher.ps1",
+    "scripts/await-auth.ps1",
+    "scripts/verify-claude.ps1"
+  ],
+  "context": [
+    "/.shared/context/windows"
+  ],
+  "actions": [
+    "install",
+    "configure",
+    "doctor",
+    "repair",
+    "auth"
+  ],
+  "hidden": false,
+  "icon": "🧠"
+}

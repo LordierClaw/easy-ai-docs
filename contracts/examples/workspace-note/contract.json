@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "name": "Ghi chú thử nghiệm",
+  "description": "Tạo và đọc lại một file trong workspace để kiểm runner.",
+  "tags": [
+    "examples"
+  ],
+  "scripts": [
+    "scripts/run.ps1"
+  ],
+  "context": [],
+  "actions": [
+    "run",
+    "install",
+    "doctor",
+    "repair"
+  ],
+  "hidden": false,
+  "icon": "📝"
+}

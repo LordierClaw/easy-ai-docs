@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "name": "Node.js portable",
+  "description": "Dùng Node kèm npm hoặc tải runtime portable đã kiểm chứng.",
+  "tags": [
+    ".shared"
+  ],
+  "scripts": [
+    "scripts/run.ps1"
+  ],
+  "context": [],
+  "actions": [
+    "ensure",
+    "doctor"
+  ],
+  "hidden": true,
+  "icon": "📦"
+}

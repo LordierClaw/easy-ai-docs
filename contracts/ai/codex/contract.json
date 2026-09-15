@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "name": "Codex",
+  "description": "Cài Codex, cấu hình provider, tạo shortcut và kiểm chứng API.",
+  "tags": [
+    "ai"
+  ],
+  "scripts": [
+    "scripts/run.ps1",
+    "scripts/install-cli.ps1",
+    "scripts/configure-provider.ps1",
+    "scripts/configure-launcher.ps1",
+    "scripts/verify-codex.ps1"
+  ],
+  "context": [
+    "/.shared/context/windows",
+    "/.shared/context/company-network"
+  ],
+  "actions": [
+    "install",
+    "configure",
+    "doctor",
+    "repair",
+    "auth"
+  ],
+  "hidden": false,
+  "icon": "🤖"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "git",
+  "version": "2.55.0.windows.5",
+  "platform": "win32-x64",
+  "format": "zip",
+  "url": "https://github.com/LordierClaw/easy-ai-docs/releases/download/runtimes-git-2.55.0.windows.5-node-24.21.0/MinGit-2.55.0.5-64-bit.zip",
+  "sha256": "56d7b226b7693196cfc71fef26568f536c4a021ab6c37ff2db4287bed908e96e",
+  "size": 38989688,
+  "executable": "cmd/git.exe",
+  "pathEntries": [
+    "cmd",
+    "mingw64/bin"
+  ],
+  "sourceUrl": "https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.5/MinGit-2.55.0.5-64-bit.zip",
+  "license": "GPL-2.0 and bundled component licenses (included in archive)",
+  "licenseUrl": "https://github.com/git-for-windows/git/blob/v2.55.0.windows.5/COPYING"
+}

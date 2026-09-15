@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "name": "Hỗ trợ truy cập mạng",
+  "description": "Mẫu thông tin để người dùng gửi IT khi endpoint bị chặn.",
+  "tags": [
+    "requests"
+  ],
+  "scripts": [],
+  "context": [
+    "/.shared/context/company-network"
+  ],
+  "actions": [
+    "run"
+  ],
+  "hidden": false,
+  "icon": "🌐"
+}

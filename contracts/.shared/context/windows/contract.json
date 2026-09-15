@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "name": "Môi trường Windows",
+  "description": "Ngữ cảnh PowerShell 5.1 và tài khoản Windows.",
+  "tags": [
+    ".shared"
+  ],
+  "scripts": [],
+  "context": [],
+  "actions": [
+    "run"
+  ],
+  "hidden": true,
+  "icon": "🪟"
+}

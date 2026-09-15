@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "name": "Atlassian MCP cho Codex",
+  "description": "Cấu hình MCP, chờ OAuth và xác minh một lời gọi chỉ đọc.",
+  "tags": [
+    "mcp"
+  ],
+  "scripts": [
+    "scripts/run.ps1",
+    "scripts/configure-mcp.ps1",
+    "scripts/await-auth.ps1"
+  ],
+  "context": [
+    "/.shared/context/company-network"
+  ],
+  "actions": [
+    "configure",
+    "doctor",
+    "repair",
+    "auth",
+    "install"
+  ],
+  "hidden": false,
+  "icon": "🔗"
+}
