@@ -1,0 +1,312 @@
+{
+  "schema": 1,
+  "revision": "388904ac9cd1215714873b7e816ecc14d239cac9",
+  "contracts": [
+    {
+      "ref": "/.shared/context/company-network",
+      "entry": "contracts/.shared/context/company-network/contract.json",
+      "files": [
+        {
+          "path": "contracts/.shared/context/company-network/contract.json",
+          "sha256": "13ec188d1bcfa5592765368f24dd0c0863116b9509071325f86d7db487ae47ce"
+        },
+        {
+          "path": "contracts/.shared/context/company-network/guide.md",
+          "sha256": "220236a426e455d68d79eed72a6903ca9e10b0065f8359fb73d8d1135d5c0da6"
+        }
+      ]
+    },
+    {
+      "ref": "/.shared/context/windows",
+      "entry": "contracts/.shared/context/windows/contract.json",
+      "files": [
+        {
+          "path": "contracts/.shared/context/windows/contract.json",
+          "sha256": "2ed25a117482288b6dccb44154f35820c059a737d32f7ed892d2f3196328ccb8"
+        },
+        {
+          "path": "contracts/.shared/context/windows/guide.md",
+          "sha256": "39e909d7b9de6c97f5ce4f0ca194eab4f2ed176af6c84b2af5024468f8bc7ca4"
+        }
+      ]
+    },
+    {
+      "ref": "/.shared/git",
+      "entry": "contracts/.shared/git/contract.json",
+      "files": [
+        {
+          "path": "contracts/.shared/git/contract.json",
+          "sha256": "5eaa86b28640234c81e2c903d074714b0606a1da0f388a99dc8817be0a5421fe"
+        },
+        {
+          "path": "contracts/.shared/git/guide.md",
+          "sha256": "c28c34bec697951b95538953a934d72e66f6746fe63a35fe4a700f90ba495971"
+        },
+        {
+          "path": "contracts/.shared/git/resources/artifact.json",
+          "sha256": "19ec9006232400778fbd8a364f419a96f0c68c93c57f42127e4ae4143de12aeb"
+        },
+        {
+          "path": "contracts/.shared/git/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/.shared/git/scripts/run.ps1",
+          "sha256": "187cbfe1464ec69f6c97577eb6b4627ffe63ad2fb23d4ca6db83f7dd6d53d1cb"
+        },
+        {
+          "path": "contracts/.shared/git/scripts/runtime.ps1",
+          "sha256": "b12c8c4a48351e4f0eda8b055e9903dc0a2f89f939d61481a898cf59229c8de7"
+        }
+      ]
+    },
+    {
+      "ref": "/.shared/nodejs",
+      "entry": "contracts/.shared/nodejs/contract.json",
+      "files": [
+        {
+          "path": "contracts/.shared/nodejs/contract.json",
+          "sha256": "d935539c1c682b810dedb3fed5e37fb21fea7708f368aba9808a265b9a337714"
+        },
+        {
+          "path": "contracts/.shared/nodejs/guide.md",
+          "sha256": "04ba4e32511bdb463c990cc71e05473206baf6c445d88554f83978298d8f63e8"
+        },
+        {
+          "path": "contracts/.shared/nodejs/resources/artifact.json",
+          "sha256": "35dc7f7c27b4850c16d1944eecc1df328850b85bb43ad52c21a4c99f12ce4343"
+        },
+        {
+          "path": "contracts/.shared/nodejs/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/.shared/nodejs/scripts/run.ps1",
+          "sha256": "187cbfe1464ec69f6c97577eb6b4627ffe63ad2fb23d4ca6db83f7dd6d53d1cb"
+        },
+        {
+          "path": "contracts/.shared/nodejs/scripts/runtime.ps1",
+          "sha256": "b12c8c4a48351e4f0eda8b055e9903dc0a2f89f939d61481a898cf59229c8de7"
+        }
+      ]
+    },
+    {
+      "ref": "/ai/claude",
+      "entry": "contracts/ai/claude/contract.json",
+      "files": [
+        {
+          "path": "contracts/ai/claude/contract.json",
+          "sha256": "6e4f1f9fe021f816224757ea950b9092d5e1debf923b413ebe9ce3eec140556a"
+        },
+        {
+          "path": "contracts/ai/claude/guide.md",
+          "sha256": "9286f5e91f671efc90cff4e0c4f60a13635604606a2837df09d58ed8d25ad35e"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/await-auth.ps1",
+          "sha256": "e16ea94fe948ca09c865bf1c0f795452b7e648f89b671a5a78605f0aa2b49f56"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/configure-launcher.ps1",
+          "sha256": "ed1e1a334dd3695123b9f23bf5493006b5dac38ab73a3003501cb407218f5b82"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/install-claude.ps1",
+          "sha256": "bd34ab2db9298ed59f1e1817d37360f16216e02193846301e05d040470c9df37"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/run.ps1",
+          "sha256": "24df001c160d9575d3de4609b55855baee6877f0571dd73f94bb142d0a24acd8"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
+        },
+        {
+          "path": "contracts/ai/claude/scripts/verify-claude.ps1",
+          "sha256": "d28d938490575c03b15c1e9860063ffe3155c669c3ac867b0da37c8e9ef49920"
+        }
+      ]
+    },
+    {
+      "ref": "/ai/codex",
+      "entry": "contracts/ai/codex/contract.json",
+      "files": [
+        {
+          "path": "contracts/ai/codex/contract.json",
+          "sha256": "f0113137466fdb9548035895c1884717359dbea7952761121bdbd81984f03d3c"
+        },
+        {
+          "path": "contracts/ai/codex/guide.md",
+          "sha256": "a40e2ff9ec6ee8331804a616c8c03944fb40772a69e841b556635c5cb66c3e6f"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/configure-launcher.ps1",
+          "sha256": "953838bed22bd2691e38dd045b08ff50b5fd18e527060192fb6e75e3c4881e1e"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/configure-provider.ps1",
+          "sha256": "8901a4b1e907464cff22d17af0ed2c0032e955e6833dd7d6fdb921b6fe4795e5"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/doctor-codex.ps1",
+          "sha256": "75419de3c1e2ddf5ec2844717d1d8f324310b2402165e43d375816d91985726c"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/install-cli.ps1",
+          "sha256": "9dd7e1d5c75d8269199353d4ad115c9768ba75cc777145b2d2d08d776f6782b8"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/run.ps1",
+          "sha256": "135ec353c3941f8c0b959a852d74318123c4026ed22715e3fed72843f57db4b7"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
+        },
+        {
+          "path": "contracts/ai/codex/scripts/verify-codex.ps1",
+          "sha256": "e4cbbbac92d6039dc677b0dbbdec45b719b26d0ca14d6298bf5898414fa0de13"
+        }
+      ]
+    },
+    {
+      "ref": "/ai/hermes",
+      "entry": "contracts/ai/hermes/contract.json",
+      "files": [
+        {
+          "path": "contracts/ai/hermes/contract.json",
+          "sha256": "a860a2f4e194835faa244f8cbc830c0065b170268c2c3a818b6918b8338e8a63"
+        },
+        {
+          "path": "contracts/ai/hermes/guide.md",
+          "sha256": "94063b7a4fc12d775e7aae8295110f6645e652e27fd10999e460d73bb76841f3"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/await-auth.ps1",
+          "sha256": "a17ed066e6145cf59b1075dc80e4807b2f2f33f236e74281a7916319f5fc3f80"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/configure-launcher.ps1",
+          "sha256": "d67098c111d3d1d7ab3e7ba3304618b7a7dde4a6c87a25c41cacd3fabfa62dd8"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/install-hermes.ps1",
+          "sha256": "4578778b5f431e99b8b19037e8918febdd500ecfffde66e2749e44d551605247"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/run.ps1",
+          "sha256": "d4e2e3ad73c6c238e65b337adcb1e297c7b63dbe1793896fa7c0d95cb7e4a07d"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
+        },
+        {
+          "path": "contracts/ai/hermes/scripts/verify-hermes.ps1",
+          "sha256": "b381e024d6f5b1d08217e01c0a04259a73d66e4d1dfa47440e8030458166af20"
+        }
+      ]
+    },
+    {
+      "ref": "/examples/workspace-note",
+      "entry": "contracts/examples/workspace-note/contract.json",
+      "files": [
+        {
+          "path": "contracts/examples/workspace-note/contract.json",
+          "sha256": "2f67c33d9e74ae9b0a193e204ed7fe13cf6cc29f05696a0171da238be6fe3bcb"
+        },
+        {
+          "path": "contracts/examples/workspace-note/guide.md",
+          "sha256": "96f9e4aa68014d11008e509366884a3d9caca91eea3ddc3aeb4341a2180754dd"
+        },
+        {
+          "path": "contracts/examples/workspace-note/scripts/common.ps1",
+          "sha256": "8e1d6aa62438fb56593e048ca74cf75687612f837cef9be651784cf78fa2060b"
+        },
+        {
+          "path": "contracts/examples/workspace-note/scripts/run.ps1",
+          "sha256": "47e530749bbc0a12c9821583bb7fcf84242365c5dca4fa60d292a44f364469a3"
+        }
+      ]
+    },
+    {
+      "ref": "/mcp/atlassian-codex",
+      "entry": "contracts/mcp/atlassian-codex/contract.json",
+      "files": [
+        {
+          "path": "contracts/mcp/atlassian-codex/contract.json",
+          "sha256": "de3cd0aa5b6898eae0c296a51a608b4e63a09fdbc7c158cedc42a3f829638e7f"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/guide.md",
+          "sha256": "725b0a6b78a8ca9cc4a7594915205e95f85df58a57678d4e1de75ad481dea6fe"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/await-auth.ps1",
+          "sha256": "bd0a6874f7556b40ffe27c254274764790edd1498940fe56552db304b4748a98"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/common.ps1",
+          "sha256": "476eb59b36665d8b498a8eaee04b4823d5ed79814ef3c59219416c1a2f1d9583"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/configure-mcp.ps1",
+          "sha256": "5f1a9cab3fa882eed47760b30fab962d3916f977ad7302c194df2f57d318ca58"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/run.ps1",
+          "sha256": "cfa024f854dfba6c571f16d4dc78d7e43dc8f4e93d453996571912dadffaa2cc"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/shortcut.cs",
+          "sha256": "7faaeac88ec066db87bdf755b6e1009b2a74eeac1bcbd2697263e0901e83a09d"
+        },
+        {
+          "path": "contracts/mcp/atlassian-codex/scripts/verify-mcp.ps1",
+          "sha256": "d49e94f602850c1470ca1ec01a82a0465b7f0a51d6426fabd55947c0db8c7e61"
+        }
+      ]
+    },
+    {
+      "ref": "/requests/installation-support",
+      "entry": "contracts/requests/installation-support/contract.json",
+      "files": [
+        {
+          "path": "contracts/requests/installation-support/contract.json",
+          "sha256": "115415ee7e468b46255ec510b776bc115008a2c7a5db1dc7ccf1fdf9bf9df9f8"
+        },
+        {
+          "path": "contracts/requests/installation-support/guide.md",
+          "sha256": "68f3fa33910e446e0dcd722ec3ae5b526cef7e5caf60a8d5503b31d962067162"
+        }
+      ]
+    },
+    {
+      "ref": "/requests/network-access",
+      "entry": "contracts/requests/network-access/contract.json",
+      "files": [
+        {
+          "path": "contracts/requests/network-access/contract.json",
+          "sha256": "5c2a19e0076bc92465b28a4623ce8b691db91b966dcc8a9d5a730eee01c93433"
+        },
+        {
+          "path": "contracts/requests/network-access/guide.md",
+          "sha256": "673960ba465082ceff08340a0411cfdd385be711278ea3571628746a99de641b"
+        }
+      ]
+    }
+  ]
+}
