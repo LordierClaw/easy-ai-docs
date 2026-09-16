@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "revision": "388904ac9cd1215714873b7e816ecc14d239cac9",
+  "revision": "a293fbe8a0176e7bd2b32552ba496296ea200cfe",
   "contracts": [
     {
       "ref": "/.shared/context/company-network",
@@ -155,10 +155,6 @@
         {
           "path": "contracts/ai/codex/scripts/configure-provider.ps1",
           "sha256": "8901a4b1e907464cff22d17af0ed2c0032e955e6833dd7d6fdb921b6fe4795e5"
-        },
-        {
-          "path": "contracts/ai/codex/scripts/doctor-codex.ps1",
-          "sha256": "75419de3c1e2ddf5ec2844717d1d8f324310b2402165e43d375816d91985726c"
         },
         {
           "path": "contracts/ai/codex/scripts/install-cli.ps1",
