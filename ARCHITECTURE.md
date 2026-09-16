@@ -1,68 +1,38 @@
-# Kiến trúc EasyAI 0.4
+# Kiến trúc Contract
 
-## Phạm vi
+Luồng chính: **Contract Repository → Runner → PowerShell**. UI và AI Supervisor dùng cùng runner. Một công cụ là một contract, action chỉ là đầu vào. Không có workflow DSL, capability sản phẩm hoặc bảng ánh xạ guide ID trong engine.
 
-Giữ ứng dụng Electron/TypeScript hiện tại, tách logic thành các phần dễ đọc và có hợp đồng rõ ràng. Giai đoạn này không viết lại EasyAI bằng Go. Dữ liệu hướng dẫn, workflow và kết quả thực thi có thể dùng lại khi triển khai một agent bằng ngôn ngữ khác.
-
-## Các lớp
-
-| Lớp | Mã chính | Trách nhiệm |
+| Phần | Mã nguồn | Trách nhiệm |
 |---|---|---|
-| Domain | `src/domain/guide.ts`, `policy.ts`, `digest.ts`; hợp đồng `src/shared/guide.ts`, `runtime.ts` | Metadata, action, tài nguyên, chọn workflow, predicate, SHA256 và policy. Không truy cập Electron, mạng, registry hoặc AI. SHA256 dùng thư viện chuẩn Node và có ánh xạ trực tiếp sang thư viện chuẩn ngôn ngữ khác. |
-| Application | `src/application/guide-engine.ts`, `workflow.ts`, `hooks.ts`, `tool-contract.ts`, `ports.ts` | Phiên làm việc, đọc guide, preflight, duyệt kế hoạch, thực thi, kiểm chứng, chẩn đoán, giới hạn sửa lỗi, hook, hội thoại và trace. |
-| Adapter | `src/main/guides.ts`, `executor.ts`, `runtime-bundles.ts`, `guide-scripts.ts`, `guide-runtime.ts`, `guide-store.ts`, `trace.ts`, `codex-provider.ts`; `src/agent/` | GitHub/cache, filesystem, Windows, PowerShell, runtime, SQLite, Pi worker và credentials. |
-| Presentation | `src/renderer/`, `src/preload/`, `src/main/guide-main.ts` | Catalog, tag, chọn tác vụ, chat, hiển thị kế hoạch/bằng chứng và IPC. `guide-main` là composition root. |
-| Content | `content/guides/`, kho `easy-ai-docs` | Hướng dẫn, workflow, script, template, references và attachments. |
+| Hợp đồng dữ liệu | src/shared/contract.ts, contract-run.ts | Metadata, giao tiếp script, trạng thái và IPC |
+| Domain | src/domain/contract.ts | Parse, validate, đường dẫn, digest và tham chiếu |
+| Runner | src/application/contract-runner.ts | Thứ tự script, chờ, retry, fallback, history và recovery |
+| Ports | src/application/contract-ports.ts | Repository, storage, executor, Supervisor |
+| Adapters | src/main/contract-*.ts | GitHub/cache, SQLite, PowerShell, cấu hình và Electron/Pi |
+| Nội dung | content/contracts | Toàn bộ logic Git/Node, provider, cài đặt và kiểm chứng |
 
-`src/main/guide-engine.ts` và `hooks.ts` chỉ còn re-export để giữ tương thích import hiện có. Core application không import adapter main. Các kiểu ở shared phục vụ cả IPC và engine; chưa chuyển tên file đồng loạt để tránh thay đổi không cần thiết.
+Composition root là src/main/contract-main.ts. Application/domain không import Electron, Pi, Windows hoặc adapter storage/network. Giữ Electron/TypeScript/Pi; chưa có plugin framework hay MCP client tổng quát. Giao tiếp JSON/file và fixtures là ranh giới để một implementation ngôn ngữ khác thay host sau này.
 
-Các port chính là `GuideRepository`, `RunStore`, `ToolExecutor`, `GuideRuntime`, `TraceSink`. Tool executor nhận mutation và bundle của phiên; AI không có quyền tự truy cập filesystem hoặc credential store. Codex provider là capability của adapter để khóa không phải đi qua script/tài liệu/hội thoại. Đây là điểm riêng của bản tích hợp Codex, không phải nhánh chọn guide trong engine.
+## Thực thi
 
-## Luồng thực thi
+start(ref, action, input) lấy catalog, ghim một revision cho toàn bộ cây contract và lưu phiên. Runner gọi scripts tuần tự; exit 0 chuyển ngay bước tiếp theo. Không gọi AI để lập kế hoạch/duyệt script. Câu hỏi thông tin trong chat không tự khởi chạy tác vụ.
 
-```mermaid
-flowchart TD
-  A[Catalog remote] --> B[Chọn guide và action]
-  A --> C[Cache hợp lệ hoặc bundled khi offline]
-  C --> B
-  B --> D[Ghim bundle và đọc GUIDE.md]
-  D --> E[Chọn workflow theo action]
-  E --> F[Preflight và policy]
-  F --> G[Kế hoạch cụ thể và checks bắt buộc]
-  G --> H[Người dùng duyệt hash kế hoạch]
-  H --> I[Kiểm tra policy lại]
-  I --> J[Runtime system hoặc bundled]
-  J --> K[Script đã ghim và các bước còn lại]
-  K --> L[Kiểm chứng độc lập]
-  L --> M[Sẵn sàng và completion]
-  K --> N[Bằng chứng lỗi]
-  L --> N
-  N --> O[AI đánh giá và đề xuất sửa cụ thể]
-  O --> G
-```
+Lỗi script → yêu cầu tương tác → fallback contract xác định → AI recovery → fallback cuối. Fallback choice luôn chờ người dùng. Fallback message/stop không chặn AI thử xử lý. Contract con resume:retry khắc phục điều kiện rồi thử lại script cha; resume:stop thành công đưa cha về redirected, không completed.
 
-`prepare_workflow` dùng đúng `workflows[action]`; guide cũ không khai báo map được đọc `workflow.json`. Cùng một hàm chọn workflow được dùng khi chuẩn bị, giữ checks bắt buộc và hiển thị completion, tránh cài nhầm trong tác vụ doctor. Workflow có thể có `steps: []` để chỉ chẩn đoán. PowerShell chẩn đoán vẫn được đưa vào kế hoạch cụ thể trước khi chạy.
+AI đọc guide, context và bằng chứng; có thể đọc/tìm contract, chạy contract phụ, viết PowerShell recovery riêng hoặc hỏi thông tin. Không chỉnh bundle đã ghim; không có operation bỏ kiểm chứng hay tự hoàn tất. Sau recovery, runner luôn chạy lại script lỗi. Tối đa hai vòng recovery/sự cố, AI ba phút; script hai mươi phút. Worker dừng vẫn chờ native tool đang chạy kết thúc trước khi nhả quyền thực thi.
 
-`execute_plan` chạy tuần tự trong phạm vi đã duyệt, lưu bước hoàn tất. Khi sửa kế hoạch, chỉ giữ lại các bước installer đã hoàn tất có nội dung không đổi; cấu hình và checks được thực hiện lại khi cần. Script thất bại dừng chuỗi; kết quả mô tả của AI không thể đánh dấu ready. Engine giới hạn số vòng sửa lỗi; đăng nhập/MFA được yêu cầu bằng user confirmation và kiểm chứng phụ thuộc `afterConfirmation`.
+V1 chỉ một tác vụ thay đổi máy tại một thời điểm. Cancel có hiệu lực giữa script và chặn bước/recovery tiếp theo. Timeout/crash lưu interrupted; không tự rollback/retry. Khi mở lại, running/queued/recovering chuyển interrupted; waiting giữ nguyên và tiếp tục thủ công. Script đã hoàn tất không chạy lại khi retry. Script phải tự kiểm hiện trạng vì lần trước có thể chỉ thực hiện một phần.
 
-## Tài nguyên và nguồn
+## Dữ liệu và tính toàn vẹn
 
-Catalog v3: `content/guides-catalog.json`, ghim commit SHA 40 ký tự và SHA256 từng tài nguyên. Client vẫn đọc được catalog v2 để tương thích cache và fixture cũ. Không thay pointer v1/v2 đã phát hành. Mỗi lần catalog/load đều kiểm tra pointer remote; nội dung cùng revision được tái sử dụng sau khi kiểm hash. Tải tài nguyên tối đa 6 kết nối đồng thời, gộp refresh đồng thời để tránh ghi cache chồng nhau.
+Mỗi lần gọi script có folder context/problem/environment riêng. JSON hỏng/thiếu không biến thành thành công và stdout không phải kênh điều khiển. PATH chỉ truyền giữa các process/contract. Runtime portable do script kiểm checksum/ZIP/version; host không có nhánh Git, Node hoặc Codex.
 
-Folder không có GUIDE.md được bỏ qua. Metadata hoặc workflow không hợp lệ làm bundle bị từ chối. File bên ngoài folder, symlink, đường dẫn vượt thư mục, tên trùng không phân biệt hoa thường và hash sai đều bị chặn. Giới hạn: 100 guide/catalog, 100 file/guide, 1 MiB/file, 20 MiB/catalog. Artifact runtime lớn đi qua manifest/release riêng. Attachment nhị phân được giữ bằng base64 trong persisted bundle với encoding rõ ràng; hash tính trên byte gốc. AI chỉ đọc văn bản qua `guide_read`.
+Catalog phát hiện contract.json từ folder, logical ref lấy từ đường dẫn. Publisher đọc byte từ commit. Toàn cây con và context giữ cùng revision; tìm kiếm trong recovery cũng dùng snapshot đó. Cache kiểm SHA256 từng file trước nạp, giữ binary, tách folder contract con khỏi resource cha. Giới hạn 100 contract, 100 file/contract, 1 MiB/file, 20 MiB/catalog; runtime lớn nằm ở release ZIP. Offline chỉ dùng snapshot đã kiểm chứng, không âm thầm thay bằng nội dung khác.
 
-Sau khi duyệt, adapter tạo một folder riêng dưới `workspace/.guide-runs`, khôi phục file/text/binary và chạy đường dẫn script bằng lệnh ngắn. `$PSScriptRoot` trỏ đúng folder scripts; tài nguyên kế bên có thể được đọc bằng đường dẫn tương đối. Script PowerShell được thêm UTF-8 BOM khi materialize để Windows PowerShell 5.1 đọc đúng tiếng Việt. Các folder này được giữ để chẩn đoán; hiện chưa có cơ chế dọn tự động cho tài nguyên phiên. Các guide tạo shortcut nạp tài nguyên `scripts/shortcut.cs` qua `$PSScriptRoot` và dùng IShellLinkW/IPersistFile Unicode, giữ được đường dẫn tài khoản/thư mục tiếng Việt.
+contracts.sqlite lưu revision, input, action, script hiện tại, attempts, quan hệ cha–con, log và recovery. contract-cache và contract-attempts là dữ liệu mới. Cleanup chuyển đổi chỉ xử lý tên dữ liệu legacy cụ thể dưới thư mục EasyAI, bỏ qua symlink; không gỡ công cụ/cấu hình/workspace. Chưa có chính sách tự dọn toàn bộ history.
 
-## Runtime
+## Quyền và credential
 
-`ensure_runtime` khai báo `runtime` và `minVersion`. Resolver kiểm tra executable có sẵn (Node kèm npm), rồi cache đã xác minh, cuối cùng tải artifact từ release `easy-ai-docs`. Không phụ thuộc Git/Node để tải Git/Node: adapter dùng HTTP và ZIP của Windows. Manifest có phiên bản, platform, executable, thư mục PATH, URL gốc/license, kích thước và SHA256. ZIP được kiểm tra đường dẫn trước giải nén, sau đó kiểm tra hash file, executable version và publish folder bằng rename.
+Script/recovery có quyền của tài khoản Windows hiện tại. Đây không phải sandbox. Backup/redaction phục vụ phục hồi và hạn chế lộ secret, không thay thế giới hạn OS. Provider được đọc lúc chạy; secret truyền qua process env, không nằm trong contract/context/prompt/bundle. PowerShell Codex xử lý DPAPI và bảo toàn cấu hình.
 
-PATH chỉ áp dụng tiến trình, được khôi phục từ cache khi mở lại EasyAI; launcher do guide tạo giữ các đường dẫn runtime cần thiết. Không cấp quyền admin, không sửa registry/PATH toàn máy. Nguồn GitHub và các release là trust root của hệ thống hiện tại; checksum bảo vệ tính toàn vẹn, không phải chữ ký tác giả độc lập.
-
-## Hợp đồng dành cho giai đoạn chuyển đổi
-
-`npm run docs:schemas` xuất JSON Schema trong `contracts/`. GUIDE metadata phiên bản 1, workflow phiên bản 1, runtime manifest phiên bản 1; catalog mới phiên bản 3; dữ liệu phiên vẫn schemaVersion 2. Các ràng buộc liên trường (tham chiếu script/check, đường dẫn, hash, policy) được kiểm trong domain/application ngoài JSON Schema.
-
-Một implementation tương lai cần giữ các điều kiện: đọc GUIDE trước tool; ghim bundle; chọn action nhất quán; hash kế hoạch; recheck policy; không bỏ checks bắt buộc; lưu completed steps/evidence; tách manual login; propagation hủy; kiểm chứng trước ready; redaction và trace. Các regression test có thể chuyển thành fixture kiểm thử chung. Windows script vẫn là tài nguyên phụ thuộc platform; thay engine bằng Go không tự biến chúng thành script đa nền tảng.
-
-Điểm còn giữ từ hệ thống hiện tại: model/provider nội bộ trong config, Windows x64, adapter bảo vệ key qua DPAPI, SQLite schema cũ và Pi worker. Việc thay các thành phần này cần adapter tương ứng, không yêu cầu viết lại format GUIDE.
+Doctor báo hiện trạng mà không cài/sửa; hoàn thành chẩn đoán không đồng nghĩa phần mềm hoạt động. Context-only chỉ hiển thị tài liệu. Hỗ trợ IT hoàn tất không chứng minh mạng/cài đặt đã xong. MCP phải có bằng chứng tool; smoke Codex cần API thật kể cả khi Supervisor bị tắt.

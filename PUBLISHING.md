@@ -15,4 +15,4 @@ Schema metadata/problem/fallback/wait/catalog nằm trong contracts/ của repo 
 
 Runtime lớn tiếp tục dùng release ZIP đã publish: MinGit 2.55.0.windows.5 và Node.js 24.21.0 kèm npm. URL, SHA256, size, version nằm trong resources/artifact.json của contract Git/Node. Đổi artifact bằng một revision nội dung mới sau khi kiểm checksum/ZIP/version; không ghi đè asset đã phát hành. Script PowerShell tải/kiểm/cache, engine không biết loại runtime. MinGit không chứa Git Bash.
 
-Catalog GUIDE cũ trên server có thể giữ cho client cũ; EasyAI 0.5 không đọc chúng và không chứa đường thực thi GUIDE.
+Kho docs đã bỏ folder GUIDE, workflow/policy schema và manifest legacy. Catalog hiện tại chỉ phục vụ Contract. Release ZIP Git/Node vẫn được giữ vì các contract runtime đang sử dụng.
