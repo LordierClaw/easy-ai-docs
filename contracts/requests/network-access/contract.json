@@ -12,6 +12,6 @@
   "actions": [
     "run"
   ],
-  "hidden": false,
+  "hidden": true,
   "icon": "🌐"
 }

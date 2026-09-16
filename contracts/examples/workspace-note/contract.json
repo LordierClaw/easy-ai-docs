@@ -15,6 +15,6 @@
     "doctor",
     "repair"
   ],
-  "hidden": false,
+  "hidden": true,
   "icon": "📝"
 }

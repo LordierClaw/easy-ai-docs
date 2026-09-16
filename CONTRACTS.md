@@ -12,7 +12,7 @@ Metadata tối thiểu:
 
     { "schema": 1, "name": "My tool", "description": "Mục đích", "scripts": ["scripts/run.ps1"], "actions": ["install", "doctor"] }
 
-Các trường: schema, name, description, icon (emoji hoặc resource), tags, scripts, context, fallback; actions mặc định ["run"] với phần tử đầu là mặc định; hidden mặc định false. Namespace không quyết định hành vi. context có thể là ref tuyệt đối hoặc file trong folder; đọc context không chạy script. Schema editor nằm trong contracts/*.schema.json; validator còn kiểm tham chiếu, tài nguyên và đường dẫn.
+Các trường: schema, name, description, icon (emoji hoặc resource), tags, scripts, context, fallback; actions mặc định ["run"] với phần tử đầu là mặc định; hidden mặc định false. UI lọc hidden cho danh sách, tìm kiếm, tag và gợi ý; contract ẩn vẫn đọc/chạy theo ref, AI và fallback. Namespace không quyết định hành vi. context có thể là ref tuyệt đối hoặc file trong folder; đọc context không chạy script. Schema editor nằm trong [repo EasyAI](https://github.com/LordierClaw/easy-ai/tree/main/contracts); validator còn kiểm tham chiếu, tài nguyên và đường dẫn.
 
 Một scripts[] dùng cho mọi action. Mỗi script đọc action, thực hiện hoặc exit 0 để bỏ qua phần không liên quan. Không workflow map, predicates hay mandatory-check DSL. Nên tách preflight, cài đặt, cấu hình, chờ/kiểm chứng để giữ tiến độ khi retry.
 

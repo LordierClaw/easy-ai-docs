@@ -27,7 +27,7 @@ V1 chỉ một tác vụ thay đổi máy tại một thời điểm. Cancel có
 
 Mỗi lần gọi script có folder context/problem/environment riêng. JSON hỏng/thiếu không biến thành thành công và stdout không phải kênh điều khiển. PATH chỉ truyền giữa các process/contract. Runtime portable do script kiểm checksum/ZIP/version; host không có nhánh Git, Node hoặc Codex.
 
-Catalog phát hiện contract.json từ folder, logical ref lấy từ đường dẫn. Publisher đọc byte từ commit. Toàn cây con và context giữ cùng revision; tìm kiếm trong recovery cũng dùng snapshot đó. Cache kiểm SHA256 từng file trước nạp, giữ binary, tách folder contract con khỏi resource cha. Giới hạn 100 contract, 100 file/contract, 1 MiB/file, 20 MiB/catalog; runtime lớn nằm ở release ZIP. Offline chỉ dùng snapshot đã kiểm chứng, không âm thầm thay bằng nội dung khác.
+Catalog phát hiện contract.json từ folder, logical ref lấy từ đường dẫn. GitHub adapter resolve branch thành commit SHA, đọc Git tree, tải đúng phiên bản, validate nội dung rồi tự tạo snapshot; không có catalog publish trên host. Toàn cây con và context giữ cùng revision; tìm kiếm trong recovery cũng dùng snapshot đó. Cache kiểm SHA256 từng file trước nạp, giữ binary, tách folder contract con khỏi resource cha. Giới hạn 100 contract, 100 file/contract, 1 MiB/file, 20 MiB/catalog; runtime lớn nằm ở release ZIP. Offline chỉ dùng snapshot đã kiểm chứng, không âm thầm thay bằng nội dung khác.
 
 contracts.sqlite lưu revision, input, action, script hiện tại, attempts, quan hệ cha–con, log và recovery. contract-cache và contract-attempts là dữ liệu mới. Cleanup chuyển đổi chỉ xử lý tên dữ liệu legacy cụ thể dưới thư mục EasyAI, bỏ qua symlink; không gỡ công cụ/cấu hình/workspace. Chưa có chính sách tự dọn toàn bộ history.
 
